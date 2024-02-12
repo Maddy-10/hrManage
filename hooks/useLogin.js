@@ -36,6 +36,7 @@ const useLogin = () => {
 
         setInput(initialInput);
         setError(initialError);
+        return true;
     };
 
     return { input, error, initialError, setError, inputHandler, submitHandler };

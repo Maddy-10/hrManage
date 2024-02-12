@@ -1,9 +1,9 @@
 import React from 'react';
-import { Pressable } from 'react-native';
-import { View, Text, Image } from 'react-native';
-import tw from 'twrnc'; // Importing Tailwind CSS for React Native
+import { View, Text, Image, Pressable } from 'react-native';
+import tw from 'twrnc';
 
 const Navbar = () => {
+  
   return (
     <>
       {/* Background View */}
@@ -16,7 +16,7 @@ const Navbar = () => {
           <View style={tw`h-full w-3/4 flex-row items-center`}>
 
             {/* Pressable area for Menu Bar */}
-            <Pressable onPress={()=>console.log('Menu Bar Opened')}>
+            <Pressable onPress={() => console.log('Menu Bar Opened')}>
               {/* Menu Logo */}
               <Image
                 style={tw`w-8 h-6 mx-4 my-auto`}
@@ -33,7 +33,7 @@ const Navbar = () => {
           <View style={tw`my-auto`}>
 
             {/* Pressable area for QR Code */}
-            <Pressable onPress={()=>console.log('Scanning QR Code')}>
+            <Pressable onPress={() => console.log('QR Code Scanning')}>
               {/* QR Code Scan Icon */}
               <Image
                 style={tw`w-8 h-8 mx-4 my-auto`}

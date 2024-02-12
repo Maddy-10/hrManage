@@ -11,6 +11,7 @@
     "dev:tailwind": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\""
   },
   "dependencies": {
+    "@react-navigation/native-stack": "^6.9.18",
     "expo": "~50.0.6",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
@@ -18,7 +19,8 @@
     "react-native-calendars": "^1.1303.0",
     "react-native-vector-icons": "^10.0.3",
     "tailwind-rn": "^4.2.0",
-    "twrnc": "^3.6.8"
+    "twrnc": "^3.6.8",
+    "expo-camera": "~14.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
