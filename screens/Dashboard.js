@@ -4,14 +4,19 @@ import Today from '../components/Today'
 import { ScrollView, View } from 'react-native'
 import tw from 'twrnc';
 import CalendarComponent from '../components/CalendarComponent';
+import { StatusBar } from 'expo-status-bar';
+import { SafeAreaView } from 'react-native';
 
 const Dashboard = () => {
   return (
     <> 
-    <ScrollView  style={tw`bg-[#1F334B] w-full h-full`}>
+    <StatusBar style='dark'/>
+    <ScrollView  style={tw`bg-white w-full h-full pt-10`}>
+      <SafeAreaView>
       <Navbar/>
       <Today/>
       <CalendarComponent/>
+      </SafeAreaView>
     </ScrollView>
         
     </>

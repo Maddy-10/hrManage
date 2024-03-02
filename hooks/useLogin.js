@@ -1,46 +1,47 @@
-import React, { useState } from 'react';
-import validate from '../utils/validate';
+import React, { useContext, useState } from "react";
+import validate from "../utils/validate";
+import { LoginState } from "../context/LoginState";
 
 const useLogin = () => {
-    //Initial state of Inputs....
-    const initialInput = {
-        username: '',
-        password: ''
-    };
-    //Initial state of Error....
-    const initialError = {
-        errorMsg: null
-    };
+  const { setLoginState } = useContext(LoginState);
 
-    //Input and Error hook...
-    const [input, setInput] = useState(initialInput);
-    const [error, setError] = useState(initialError);
+  //Initial state of Inputs....
+  const initialInput = {
+    username: "",
+    password: "",
+  };
+  //Initial state of Error....
+  const initialError = {
+    errorMsg: null,
+  };
 
-    //Input Handler
-    const inputHandler = (name, value) => {
-        setInput({
-            ...input,
-            [name]: value
-        });
-    };
+  //Input and Error hook...
+  const [input, setInput] = useState(initialInput);
+  const [error, setError] = useState(initialError);
 
-    //Submit Handler
-    const submitHandler = () => {
+  //Input Handler
+  const inputHandler = (name, value) => {
+    setInput({
+      ...input,
+      [name]: value,
+    });
+  };
 
-        const isError = validate(input);
+  //Submit Handler
+  const submitHandler = () => {
+    const isError = validate(input);
 
-        if (isError) {
-            setError(isError);
-            return;
-        }
+    if (isError) {
+      setError(isError);
+      return;
+    }
+    setLoginState(false);
+    setInput(initialInput);
+    setError(initialError);
+    return true;
+  };
 
-        setInput(initialInput);
-        setError(initialError);
-        return true;
-    };
-
-    return { input, error, initialError, setError, inputHandler, submitHandler };
-
+  return { input, error, initialError, setError, inputHandler, submitHandler };
 };
 
 export default useLogin;

@@ -1,11 +1,13 @@
 // Importing necessary modules
-import React, { useState } from 'react';
-import { Pressable, View, Text } from 'react-native';
-import { Calendar } from 'react-native-calendars';
-import tw from 'twrnc';
-import OldRecord from './OldRecord';
+import React, { useState } from "react";
+import { Pressable, View, Text } from "react-native";
+import { Calendar } from "react-native-calendars";
+import tw from "twrnc";
+import OldRecord from "./OldRecord";
+import { useNavigation } from "@react-navigation/native";
 
 const CalendarComponent = () => {
+  const { navigate } = useNavigation();
 
   // State to store selected date
   const [selectedDate, setSelectedDate] = useState(null);
@@ -21,7 +23,7 @@ const CalendarComponent = () => {
   // Object to mark selected dates on calendar
   const markedDates = {};
   if (selectedDate) {
-    markedDates[selectedDate] = { selected: true, selectedColor: '#F3AB9D' };
+    markedDates[selectedDate] = { selected: true, selectedColor: "#68B0EE" };
   }
 
   // Function to go back from old record view
@@ -31,43 +33,53 @@ const CalendarComponent = () => {
   };
 
   //Function to check that date is selected
-  const getreord = () =>{
-    if(selectedDate != null){
-      setViewOldRecord(true);
+  const getrecord = () => {
+    if (selectedDate != null) {
+      navigate("OldRecordDetails", { selectedDate });
       //console.log(selectedDate);
     }
-  }
+  };
 
   return (
     <>
       {/* Calendar component */}
-      <View style={tw.style('mx-4 rounded-lg mt-5')}>
+      <View style={tw.style("mx-4 rounded-lg mt-5")}>
         <Calendar
-          style={tw.style('bg-[#FEC96B] rounded-lg')}
+          style={tw.style("bg-[#68B0EE] h-[380px] border rounded-lg")}
           theme={{
-            monthTextColor: 'black',
+            monthTextColor: "white",
             textMonthFontSize: 20,
-            textMonthFontWeight: 'bold',
-            arrowColor: 'black',
-            textSectionTitleColor: 'black',
-            calendarBackground: '#FEC96B',
+            textMonthFontWeight: "bold",
+            arrowColor: "white",
+            textSectionTitleColor: "#FFFFFF",
+            calendarBackground: "white",
           }}
           onDayPress={handleDayPress}
           markedDates={markedDates}
         />
 
         {/* Button to view old records */}
-        {selectedDate ? <Pressable
-          onPress={getreord}
-          style={tw.style('bg-[#F3AB9D] w-1/5 rounded mt-2 mx-auto')}
-          android_ripple={{ color: '#F8CAD' }}>          
-            <Text style={tw.style('text-center font-extrabold text-lg')}>
+        {selectedDate ? (
+          <Pressable
+            onPress={() => {
+              navigate("OldRecordDetails", { selectedDate });
+            }}
+            style={tw.style("bg-[#1DA1F2] w-1/3 rounded mt-5 mx-auto")}
+            android_ripple={{ color: "#F8CAD" }}
+          >
+            <Text style={tw.style("text-center text-white font-extrabold text-lg")}>
               Get
-            </Text>          
-        </Pressable> : <View style={tw.style('bg-[#F1C28E] rounded mt-10 p-4')}><Text style={tw.style('text-sm font-semibold text-center')}> please Select the date of record</Text></View>}        
+            </Text>
+          </Pressable>
+        ) : (
+          <View style={tw.style("bg-[#1DA1F2] rounded mt-5 p-4")}>
+            <Text style={tw.style("text-sm text-white font-semibold text-center")}>
+              {" "}
+              please Select the date of record
+            </Text>
+          </View>
+        )}
       </View>
-      {/* OldRecord component */}
-      {viewOldRecord && <OldRecord date={selectedDate} component={back} />}
     </>
   );
 };

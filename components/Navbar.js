@@ -1,31 +1,28 @@
 import React from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import tw from 'twrnc';
+import { Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 
 const Navbar = () => {
-  
+ 
   return (
-    <>
-      {/* Background View */}
+    
+      //{/* Background View */}
       <View>
         
         {/* Inner Navbar View */}
-        <View style={tw`bg-[#FEC96B] h-12 mt-10 mx-4 flex-row justify-between rounded-lg`}>
+        <View style={tw`bg-[#E1E8ED] border border-[#1DA1F2] h-12 mx-4 flex-row justify-between rounded-lg`}>
           
           {/* Left Section */}
           <View style={tw`h-full w-3/4 flex-row items-center`}>
 
             {/* Pressable area for Menu Bar */}
-            <Pressable onPress={() => console.log('Menu Bar Opened')}>
-              {/* Menu Logo */}
-              <Image
-                style={tw`w-8 h-6 mx-4 my-auto`}
-                source={require('../assets/icons/menulogo.png')}
-              />
-            </Pressable>
+            
 
             {/* Text */}
-            <Text style={tw`font-bold text-2xl`}>EMPLOYEE</Text> 
+            <Text style={tw`font-bold text-2xl px-2`}>EMPLOYEE</Text> 
 
           </View> 
 
@@ -33,11 +30,11 @@ const Navbar = () => {
           <View style={tw`my-auto`}>
 
             {/* Pressable area for QR Code */}
-            <Pressable onPress={() => console.log('QR Code Scanning')}>
+            <Pressable onPress={()=>{console.log("User Avatar");}}>
               {/* QR Code Scan Icon */}
               <Image
-                style={tw`w-8 h-8 mx-4 my-auto`}
-                source={require('../assets/icons/qrscan.png')}
+                style={tw`w-8 h-8 border border-black rounded-full mx-4 my-auto`}
+                source={require('../assets/image/user.png')}
               />
             </Pressable>
 
@@ -45,7 +42,7 @@ const Navbar = () => {
 
         </View>
       </View>
-    </>
+    
   );
 };
 
