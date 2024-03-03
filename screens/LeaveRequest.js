@@ -6,7 +6,7 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import tailwind from "twrnc";
 import DatePicker from "react-native-date-picker";
@@ -15,11 +15,17 @@ import { Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { Data } from "../context/Data";
 
 export default function LeaveRequest() {
+  const {reasonstr,setReasonStr}=useContext(Data)
   const [selectedDate, setSelectedDate] = useState(null);
   const [reason, setReason] = useState("");
   const [error, setError] = useState("");
+  const [pending,setPending]=useState(false);
+  const [approved,setApproved]=useState(true);
+  const [reject,setReject]=useState(false);
+  const [status,setStatus]=useState(false);
 
   const handleDayPress = (day) => {
     setSelectedDate(day.dateString);
@@ -31,10 +37,9 @@ export default function LeaveRequest() {
       console.log(reason);
       console.log("Date Of Leave");
       console.log(selectedDate);
-      notify(reason);
+      notify(reasonstr);
       setReason("");
       setError("");
-      setSelectedDate(false);
     } else {
       setError("Enter the Reason For Leave");
       console.log("no reason");
@@ -45,12 +50,16 @@ export default function LeaveRequest() {
     Alert.alert(
       "Leave Request",
       `Your Leave Requst is Sent. Reason: ${reason} `,
-      [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+      [{ text: "OK", onPress: () => {
+        console.log("OK Pressed")
+        setStatus(true);
+      } }]
     );
   };
 
   const req = (value) => {
     setReason(value);
+    setReasonStr(value);
     setError("");
   };
 
@@ -125,12 +134,15 @@ export default function LeaveRequest() {
           <Text style={tailwind.style("text-2xl mx-2 mt-3 underline")}>
             Status
           </Text>
-          <ScrollView>
+          {status && <ScrollView>
             <View style={tailwind.style("flex-row justify-around mt-3")}>
               <View style={tailwind.style("flex-row mt-3")}>
-                <Text>Date</Text>
+                <Text>{selectedDate}</Text>
               </View>
               <View style={tailwind.style("flex-row mt-3")}>
+                <Text>:</Text>
+              </View>
+              {pending?<View style={tailwind.style("flex-row mt-3")}>
                 <Text style={tailwind.style("my-auto")}>Pending</Text>
                 <Ionicons
                   style={tailwind.style("my-auto ml-1")}
@@ -138,7 +150,7 @@ export default function LeaveRequest() {
                   size={15}
                   color="black"
                 />
-              </View>
+              </View>:approved ?
               <View style={tailwind.style("flex-row mt-3")}>
                 <Text style={tailwind.style("my-auto")}>Accepted</Text>
                 <FontAwesome
@@ -147,7 +159,7 @@ export default function LeaveRequest() {
                   size={15}
                   color="green"
                 />
-              </View>
+              </View>:
               <View style={tailwind.style("flex-row mt-3")}>
                 <Text style={tailwind.style("my-auto")}>Rejected</Text>
                 <FontAwesome6
@@ -156,137 +168,9 @@ export default function LeaveRequest() {
                   size={15}
                   color="red"
                 />
-              </View>
+              </View>}
             </View>
-            <View style={tailwind.style("flex-row justify-around mt-3")}>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text>Date</Text>
-              </View>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text style={tailwind.style("my-auto")}>Pending</Text>
-                <Ionicons
-                  style={tailwind.style("my-auto ml-1")}
-                  name="time-outline"
-                  size={15}
-                  color="black"
-                />
-              </View>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text style={tailwind.style("my-auto")}>Accepted</Text>
-                <FontAwesome
-                  style={tailwind.style("my-auto ml-1")}
-                  name="check-circle-o"
-                  size={15}
-                  color="green"
-                />
-              </View>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text style={tailwind.style("my-auto")}>Rejected</Text>
-                <FontAwesome6
-                  style={tailwind.style("my-auto ml-1")}
-                  name="xmark-circle"
-                  size={15}
-                  color="red"
-                />
-              </View>
-            </View>
-            <View style={tailwind.style("flex-row justify-around mt-3")}>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text>Date</Text>
-              </View>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text style={tailwind.style("my-auto")}>Pending</Text>
-                <Ionicons
-                  style={tailwind.style("my-auto ml-1")}
-                  name="time-outline"
-                  size={15}
-                  color="black"
-                />
-              </View>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text style={tailwind.style("my-auto")}>Accepted</Text>
-                <FontAwesome
-                  style={tailwind.style("my-auto ml-1")}
-                  name="check-circle-o"
-                  size={15}
-                  color="green"
-                />
-              </View>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text style={tailwind.style("my-auto")}>Rejected</Text>
-                <FontAwesome6
-                  style={tailwind.style("my-auto ml-1")}
-                  name="xmark-circle"
-                  size={15}
-                  color="red"
-                />
-              </View>
-            </View>
-            <View style={tailwind.style("flex-row justify-around mt-3")}>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text>Date</Text>
-              </View>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text style={tailwind.style("my-auto")}>Pending</Text>
-                <Ionicons
-                  style={tailwind.style("my-auto ml-1")}
-                  name="time-outline"
-                  size={15}
-                  color="black"
-                />
-              </View>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text style={tailwind.style("my-auto")}>Accepted</Text>
-                <FontAwesome
-                  style={tailwind.style("my-auto ml-1")}
-                  name="check-circle-o"
-                  size={15}
-                  color="green"
-                />
-              </View>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text style={tailwind.style("my-auto")}>Rejected</Text>
-                <FontAwesome6
-                  style={tailwind.style("my-auto ml-1")}
-                  name="xmark-circle"
-                  size={15}
-                  color="red"
-                />
-              </View>
-            </View>
-            <View style={tailwind.style("flex-row justify-around my-3")}>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text>Date</Text>
-              </View>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text style={tailwind.style("my-auto")}>Pending</Text>
-                <Ionicons
-                  style={tailwind.style("my-auto ml-1")}
-                  name="time-outline"
-                  size={15}
-                  color="black"
-                />
-              </View>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text style={tailwind.style("my-auto")}>Accepted</Text>
-                <FontAwesome
-                  style={tailwind.style("my-auto ml-1")}
-                  name="check-circle-o"
-                  size={15}
-                  color="green"
-                />
-              </View>
-              <View style={tailwind.style("flex-row mt-3")}>
-                <Text style={tailwind.style("my-auto")}>Rejected</Text>
-                <FontAwesome6
-                  style={tailwind.style("my-auto ml-1")}
-                  name="xmark-circle"
-                  size={15}
-                  color="red"
-                />
-              </View>
-            </View>
-          </ScrollView>
+          </ScrollView>}
         </SafeAreaView>
       </ScrollView>
     </>

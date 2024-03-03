@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import tw from 'twrnc';
 import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+import { Data } from '../context/Data';
 
 const Navbar = () => {
+  const {username}=useContext(Data);
  
   return (
     
@@ -22,7 +24,7 @@ const Navbar = () => {
             
 
             {/* Text */}
-            <Text style={tw`font-bold text-2xl px-2`}>EMPLOYEE</Text> 
+            <Text style={tw`font-bold text-2xl px-2`}>{username}</Text> 
 
           </View> 
 

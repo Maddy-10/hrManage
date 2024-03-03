@@ -2,17 +2,40 @@ import React from "react";
 import { View, Text, TextInput, Pressable, Platform, StatusBar } from "react-native";
 import tw from "twrnc";
 import useLogin from "../hooks/useLogin";
-import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login({ navigation }) {
   // Using custom hook to manage login state
   const { input, error, initialError, inputHandler, submitHandler, setError } =
     useLogin();
 
+    const storeData = async (value) => {
+      try {
+        await AsyncStorage.setItem('username', value);
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+
+    const getData = async () => {
+      try {
+        const value = await AsyncStorage.getItem('username');
+        if (value !== null) {
+          
+          console.log('from Async Storage : '+value);
+        }
+      } catch (e) {
+        console.log('get Error');
+      }
+    };
+
   const loginPress = () => {
     const log = submitHandler();
-    if (log === true) {
+    if (log === true) {      
       console.log("Login Success");
+      // storeData(input.username)
+      getData()
+      
     }
   };
 

@@ -11,10 +11,12 @@ const CalendarComponent = () => {
 
   // State to store selected date
   const [selectedDate, setSelectedDate] = useState(null);
-
   // Function to handle day press event on calendar
   const handleDayPress = (day) => {
-    setSelectedDate(day.dateString);
+    setSelectedDate(()=>{
+      return day.dateString
+    });
+    console.log(selectedDate);
   };
 
   // State to toggle viewing old records
@@ -29,7 +31,7 @@ const CalendarComponent = () => {
   // Function to go back from old record view
   const back = () => {
     setViewOldRecord(false);
-    setSelectedDate(null);
+    // setSelectedDate(null);
   };
 
   //Function to check that date is selected
@@ -67,13 +69,17 @@ const CalendarComponent = () => {
             style={tw.style("bg-[#1DA1F2] w-1/3 rounded mt-5 mx-auto")}
             android_ripple={{ color: "#F8CAD" }}
           >
-            <Text style={tw.style("text-center text-white font-extrabold text-lg")}>
+            <Text
+              style={tw.style("text-center text-white font-extrabold text-lg")}
+            >
               Get
             </Text>
           </Pressable>
         ) : (
           <View style={tw.style("bg-[#1DA1F2] rounded mt-5 p-4")}>
-            <Text style={tw.style("text-sm text-white font-semibold text-center")}>
+            <Text
+              style={tw.style("text-sm text-white font-semibold text-center")}
+            >
               {" "}
               please Select the date of record
             </Text>

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Text, View, Button, StatusBar, Image } from "react-native"; // Removed unnecessary imports
 import { BarCodeScanner } from "expo-barcode-scanner";
 import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import { Data } from "../context/Data";
 
 export default function App() {
+  const {setQrToken,qrToken}=useContext(Data);
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [text, setText] = useState("");
@@ -29,6 +31,21 @@ export default function App() {
   const handleQrCodeScanned = ({ data }) => {
     setScanned(true);
     setText(data);
+    console.log(data);
+    setQrToken(data);
+    console.log(qrToken);
+    var currentDate = new Date();
+
+    // Get current time components
+    var hours = currentDate.getHours();
+    var minutes = currentDate.getMinutes();
+    var seconds = currentDate.getSeconds();
+
+    // Display the current time
+          
+        const enTime =`${hours}:${minutes}:${seconds}`;
+        console.log(enTime);       
+  
   };
 
   if (hasPermission === null) {

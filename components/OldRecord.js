@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, Pressable, Text, View } from "react-native";
+import ProgressBar from "react-native-progress/Bar";
 import tw from "twrnc";
 
 const OldRecord = (props) => {
@@ -38,17 +39,9 @@ const OldRecord = (props) => {
         </View>
 
         {/* Total hours container */}
-        <View style={tw.style("w-full px-4 flex-row my-3")}>
-          {/* Total hours label */}
-          <Text style={tw.style("text-white  font-bold text-xl")}>
-            Total Hours :{" "}
-          </Text>
-
-          {/* Total hours value */}
-          <Text style={tw.style("text-white  font-semibold text-sm my-auto")}>
-            {" "}
-            8 hours 24 minutes
-          </Text>
+        <View style={tw.style('w-full px-4 flex-row my-auto py-2')}>
+        <Text style={tw.style('text-white my-auto font-bold text-xl')}>Total Hours : </Text>
+        <ProgressBar  progress={0.5} style={tw.style('w-1/2 mx-auto my-auto h-auto')} color='orange' />
         </View>
       </View>
     </>

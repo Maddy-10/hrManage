@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import validate from "../utils/validate";
 import { LoginState } from "../context/LoginState";
+import { Data } from "../context/Data";
 
 const useLogin = () => {
   const { setLoginState } = useContext(LoginState);
+  const { setUsername,setPassword } = useContext(Data);
 
   //Initial state of Inputs....
   const initialInput = {
@@ -35,6 +37,8 @@ const useLogin = () => {
       setError(isError);
       return;
     }
+    setUsername(input.username)
+    setPassword(input.password)
     setLoginState(false);
     setInput(initialInput);
     setError(initialError);

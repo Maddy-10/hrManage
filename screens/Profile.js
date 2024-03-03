@@ -3,9 +3,11 @@ import React, { useContext } from "react";
 import { LoginState } from "../context/LoginState";
 import tailwind from "twrnc";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { Data } from "../context/Data";
 
 export default function Profile() {
   const { setLoginState } = useContext(LoginState);
+  const { username } = useContext(Data);
   return (
     <View style={tailwind.style("h-[680px] mt-5 pt-5")}>
       <View style={tailwind.style('flex-row mx-4 justify-between')}>
@@ -41,7 +43,7 @@ export default function Profile() {
       </View>
       <View style={tailwind.style("mx-5 text-xl mt-4 border-b flex-row justify-between")}>
       <Text style={tailwind.style('text-lg')}>Name :</Text>
-        <Text style={tailwind.style('text-lg')}>Maddy</Text>
+        <Text style={tailwind.style('text-lg')}>{username}</Text>
       </View>
       <View style={tailwind.style("mx-5 text-xl mt-4 border-b flex-row justify-between")}>
       <Text style={tailwind.style('text-lg')}>Email :</Text>
